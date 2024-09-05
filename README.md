@@ -41,6 +41,12 @@ This repository contains the frontend of a chat application built using modern w
     npm start
     ```
 
+4. To run tests:
+
+    ```bash
+    npm test
+    ```
+
 ## Backend Integration
 
 Ensure the [Chat Application Backend](https://github.com/wenkey-gm/chat_application_backend) is running to enable full functionality.
