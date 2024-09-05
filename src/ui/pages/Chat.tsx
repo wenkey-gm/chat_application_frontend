@@ -51,9 +51,10 @@ const Chat = () => {
   }, [loadMessages, userId]);
 
   const handleSendMessage = async (message: string) => {
-    if (!message.trim()) {
+    if (!message.trim() || !websocket.current) {
       return;
     }
+    websocket.current.send(message);
     try {
       const newMessage = await saveMessage(message, false, userId);
       setMessages((prev) => [...prev, newMessage]);
