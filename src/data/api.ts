@@ -4,8 +4,13 @@ import { LoginResponse, UserLogin } from "../models/login";
 import { Message, UserMessages } from "../models/Message";
 
 export const loginUser = async (user: UserLogin): Promise<LoginResponse> => {
-  const response = await axios.post<LoginResponse>(`${API_URL}/login`, user);
-  return response.data;
+  try {
+    const response = await axios.post<LoginResponse>(`${API_URL}/login`, user);
+    return response.data;
+  } catch (error) {
+    console.error("Error login user:", error);
+    throw error;
+  }
 };
 
 export const fetchUserMessages = async (
