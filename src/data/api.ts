@@ -35,7 +35,7 @@ export const saveMessage = async (
     });
     return response.data;
   } catch (error) {
-    console.error("Error fetching messages:", error);
+    console.error("Error saving message:", error);
     throw error;
   }
 };
