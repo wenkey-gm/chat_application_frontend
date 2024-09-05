@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../utils/constants";
 import { LoginResponse, UserLogin } from "../models/login";
-import { UserMessages } from "../models/Message";
+import { Message, UserMessages } from "../models/Message";
 
 export const loginUser = async (user: UserLogin): Promise<LoginResponse> => {
   const response = await axios.post<LoginResponse>(`${API_URL}/login`, user);
@@ -18,6 +18,24 @@ export const fetchUserMessages = async (
     return response.data;
   } catch (error) {
     console.error("Error fetching messages:", error);
-    throw error; // Re-throw the error so it can be handled in the component
+    throw error;
+  }
+};
+
+export const saveMessage = async (
+  content: string,
+  isReceived: boolean,
+  userId: number
+): Promise<Message> => {
+  try {
+    const response = await axios.post(`${API_URL}/message`, {
+      content: content,
+      is_received: isReceived,
+      user_id: userId,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error saving message:", error);
+    throw error;
   }
 };

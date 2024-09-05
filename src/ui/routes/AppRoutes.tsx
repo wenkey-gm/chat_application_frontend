@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Login from "../ui/pages/Login";
-import Chat from "../ui/pages/chat";
+import Login from "../pages/Login";
+import Chat from "../pages/chat";
 
 const AppRoutes = () => {
   return (
