@@ -5,3 +5,9 @@ export interface Message {
   user_id: number;
   timestamp: string;
 }
+
+export interface UserMessages {
+  id: number;
+  email: string;
+  messages: Message[];
+}
