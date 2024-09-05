@@ -32,7 +32,13 @@ const Chat = () => {
     };
 
     websocket.current.onmessage = async (event) => {
-      console.log("Websocket on event", event);
+      const receivedMessage = event.data;
+      try {
+        const newMessage = await saveMessage(receivedMessage, true, userId);
+        setMessages((prev) => [...prev, newMessage]);
+      } catch (error) {
+        console.error("Error saving received message:", error);
+      }
     };
 
     websocket.current.onerror = (error) => {
