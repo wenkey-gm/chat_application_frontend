@@ -1,6 +1,8 @@
 import "../components/css/login.css";
 import React, { useState } from "react";
 import CustomInput from "../components/CustomInput";
+import { loginUser } from "../../data/api";
+import { UserLogin } from "../../models/login";
 
 const Login: React.FC = () => {
   const [userEmail, setUserEmail] = useState<string>("");
@@ -9,6 +11,15 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const userLogin: UserLogin = {
+        email: userEmail,
+        password: userPassword,
+      };
+      await loginUser(userLogin);
+    } catch (err) {
+      setError("Invalid email or password");
+    }
   };
 
   return (
