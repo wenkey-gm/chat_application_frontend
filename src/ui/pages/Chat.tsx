@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ChatHeader from "../components/ChatHeader";
 import CustomMessageInput from "../components/CustomMessageinput";
 import CustomMessageList from "../components/CustomMessageList";
@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [userId, setUserId] = useState<number>(1);
-
+  const websocket = useRef<WebSocket | null>(null);
   const { email } = useParams<{ email: string }>();
 
   const loadMessages = useCallback(async () => {
@@ -24,7 +24,31 @@ const Chat = () => {
 
   useEffect(() => {
     loadMessages();
-  }, [loadMessages]);
+
+    websocket.current = new WebSocket("ws://websocket-echo.com");
+
+    websocket.current.onopen = () => {
+      console.log("WebSocket connection established");
+    };
+
+    websocket.current.onmessage = async (event) => {
+      console.log("Websocket on event", event);
+    };
+
+    websocket.current.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    websocket.current.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+
+    return () => {
+      if (websocket.current) {
+        websocket.current.close();
+      }
+    };
+  }, [loadMessages, userId]);
 
   const handleSendMessage = async (message: string) => {
     if (!message.trim()) {
