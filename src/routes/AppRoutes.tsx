@@ -6,7 +6,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/chat" element={<Chat />} />
+      <Route path="/chat/:email" element={<Chat />} />
     </Routes>
   );
 };

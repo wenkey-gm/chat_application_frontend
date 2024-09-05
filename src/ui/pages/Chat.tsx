@@ -4,18 +4,20 @@ import CustomMessageInput from "../components/CustomMessageinput";
 import CustomMessageList from "../components/CustomMessageList";
 import { Message } from "../../models/Message";
 import { fetchUserMessages } from "../../data/api";
+import { useParams } from "react-router-dom";
 
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const { email } = useParams<{ email: string }>();
 
   const loadMessages = useCallback(async () => {
     try {
-      const user = await fetchUserMessages("one@gmail.com");
+      const user = await fetchUserMessages(email ?? "one@gmail.com");
       setMessages(user.messages);
     } catch (error) {
       console.error("Error loading messages:", error);
     }
-  }, []);
+  }, [email]);
 
   useEffect(() => {
     loadMessages();
