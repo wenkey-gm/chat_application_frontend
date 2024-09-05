@@ -1,0 +1,42 @@
+body,
+html {
+  height: 100%;
+  display: flex;
+  width: 95%;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4;
+}
+
+.login-box {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 2vh;
+  color: black;
+  background-color: #ffc324;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-box button:hover {
+  background-color: #f5d06a;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
