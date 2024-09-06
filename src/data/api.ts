@@ -14,7 +14,7 @@ export const loginUser = async (user: UserLogin): Promise<LoginResponse> => {
 };
 
 export const fetchUserMessages = async (
-  token: string
+  token: string | undefined
 ): Promise<UserMessages> => {
   try {
     const response = await axios.get<UserMessages>(
@@ -28,7 +28,7 @@ export const fetchUserMessages = async (
 };
 
 export const saveMessage = async (
-  token: string,
+  token: string | undefined,
   content: string,
   isReceived: boolean,
   userId: number
