@@ -65,6 +65,23 @@ Before you begin, ensure you have met the following requirements:
     npm run build
     ```
 
+## Test User
+
+To facilitate testing the application, the following test user is pre-configured:
+
+```
+# User1:
+    Email: one@gmail.com
+    Password: 12345678
+
+# User2:
+    Email: two@gmail.com
+    password: two
+```
+
+This user is automatically added to the database when initializing with running the backend. You can use this test user for login and chat operations during local testing.
+
+
 ## Backend Integration
 
 Ensure the [Chat Application Backend](https://github.com/wenkey-gm/chat_application_backend) is running to enable full functionality.
