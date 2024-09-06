@@ -14,7 +14,7 @@ const Chat: React.FC = () => {
 
   const loadMessages = useCallback(async () => {
     try {
-      const user = await fetchUserMessages(token ?? "one@gmail.com");
+      const user = await fetchUserMessages(token ?? "");
       setMessages(user.messages);
       setUserId(user.id);
     } catch (error) {
