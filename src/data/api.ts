@@ -14,11 +14,11 @@ export const loginUser = async (user: UserLogin): Promise<LoginResponse> => {
 };
 
 export const fetchUserMessages = async (
-  email: string
+  token: string
 ): Promise<UserMessages> => {
   try {
     const response = await axios.get<UserMessages>(
-      `${API_URL}/${email}/messages`
+      `${API_URL}/${token}/messages`
     );
     return response.data;
   } catch (error) {
@@ -28,12 +28,13 @@ export const fetchUserMessages = async (
 };
 
 export const saveMessage = async (
+  token: string,
   content: string,
   isReceived: boolean,
   userId: number
 ): Promise<Message> => {
   try {
-    const response = await axios.post(`${API_URL}/message`, {
+    const response = await axios.post(`${API_URL}/${token}/message`, {
       content: content,
       is_received: isReceived,
       user_id: userId,
