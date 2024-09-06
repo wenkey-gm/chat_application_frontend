@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ChatHeader from "../components/ChatHeader";
 import CustomMessageInput from "../components/CustomMessageinput";
 import CustomMessageList from "../components/CustomMessageList";
@@ -6,21 +6,21 @@ import { Message } from "../../models/Message";
 import { fetchUserMessages, saveMessage } from "../../data/api";
 import { useParams } from "react-router-dom";
 
-const Chat = () => {
+const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [userId, setUserId] = useState<number>(1);
   const websocket = useRef<WebSocket | null>(null);
-  const { email } = useParams<{ email: string }>();
+  const { token } = useParams<{ token: string }>();
 
   const loadMessages = useCallback(async () => {
     try {
-      const user = await fetchUserMessages(email ?? "one@gmail.com");
+      const user = await fetchUserMessages(token ?? "");
       setMessages(user.messages);
       setUserId(user.id);
     } catch (error) {
       console.error("Error loading messages:", error);
     }
-  }, [email]);
+  }, [token]);
 
   useEffect(() => {
     loadMessages();
@@ -31,17 +31,17 @@ const Chat = () => {
       console.log("WebSocket connection established");
     };
 
-    websocket.current.onmessage = async (event) => {
+    websocket.current.onmessage = async (event: { data: string; }) => {
       const receivedMessage = event.data;
       try {
-        const newMessage = await saveMessage(receivedMessage, true, userId);
-        setMessages((prev) => [...prev, newMessage]);
+        const newMessage = await saveMessage(token, receivedMessage, true, userId);
+        setMessages((prev: Message[]) => [...prev, newMessage]);
       } catch (error) {
         console.error("Error saving received message:", error);
       }
     };
 
-    websocket.current.onerror = (error) => {
+    websocket.current.onerror = (error: any) => {
       console.error("WebSocket error:", error);
     };
 
@@ -62,8 +62,8 @@ const Chat = () => {
     }
     websocket.current.send(message);
     try {
-      const newMessage = await saveMessage(message, false, userId);
-      setMessages((prev) => [...prev, newMessage]);
+      const newMessage = await saveMessage(token, message, false, userId);
+      setMessages((prev: Message[]) => [...prev, newMessage]);
     } catch (error) {
       console.error("Error saving sent message:", error);
     }

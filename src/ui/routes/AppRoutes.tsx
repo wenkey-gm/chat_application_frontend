@@ -11,12 +11,12 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route
-        path="/chat/:email"
+        path="/chat/:token"
         element={isLoggedIn ? <Chat /> : <Navigate to="/login" />}
       />
       <Route
         path="*"
-        element={<Navigate to={isLoggedIn ? "/chat/:email" : "/login"} />}
+        element={<Navigate to={isLoggedIn ? "/chat/:token" : "/login"} />}
       />
     </Routes>
   );
